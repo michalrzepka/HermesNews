@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -41,7 +41,7 @@
                     android:id="@+id/published_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                        android:text="2018-05-12"
+                    android:text="2018-05-12"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="14sp" />
 
@@ -49,12 +49,11 @@
                     android:id="@+id/separator_view"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"
-                    android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    ></View>
+                    android:layout_marginTop="2dp"
+                    android:background="@android:color/darker_gray"></View>
 
 
                 <TextView
@@ -66,7 +65,6 @@
                     android:text="Angela Giuffrida in Rome"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="14sp" />
-
 
             </LinearLayout>
 
@@ -84,9 +82,9 @@
 
         <ImageView
             android:id="@+id/thumbnail_image_view"
-            android:layout_marginLeft="8dp"
             android:layout_width="112dp"
             android:layout_height="112dp"
+            android:layout_marginLeft="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/illustration" />
 

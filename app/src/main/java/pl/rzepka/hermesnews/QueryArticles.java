@@ -38,7 +38,6 @@ public final class QueryArticles {
             Log.e(LOG_TAG, "Problem making HTTP request", exception);
         }
         List<Article> articles = extractArticlesFromJson(jsonResponse);
-
         return articles;
     }
 
@@ -51,11 +50,9 @@ public final class QueryArticles {
             JSONObject jsonResponseObject = new JSONObject(jsonResponse);
             JSONObject jsonResults = jsonResponseObject.getJSONObject("response");
             JSONArray responseArray = jsonResults.getJSONArray("results");
-
             for (int i = 0; i < responseArray.length(); i++) {
                 JSONObject article = responseArray.getJSONObject(i);
                 JSONObject fields = article.getJSONObject("fields");
-
                 String title = fields.getString("headline");
                 String trail = fields.getString("trailText");
                 String author = fields.getString("byline");
@@ -67,7 +64,6 @@ public final class QueryArticles {
                 } catch (IOException exception) {
                     Log.e(LOG_TAG, "Error getting thumbnail", exception);
                 }
-
                 articles.add(new Article(title, published, author, trail, thumbnail, url));
             }
         } catch (JSONException exception) {
@@ -92,7 +88,6 @@ public final class QueryArticles {
         if (url == null) {
             return jsonResponse;
         }
-
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000);
@@ -116,7 +111,6 @@ public final class QueryArticles {
                 inputStream.close();
             }
         }
-
         return jsonResponse;
 
     }
@@ -142,7 +136,6 @@ public final class QueryArticles {
                 inputStream.close();
             }
         }
-
         return thumbnail;
     }
 
@@ -157,7 +150,6 @@ public final class QueryArticles {
                 line = reader.readLine();
             }
         }
-
         return output.toString();
     }
 }
