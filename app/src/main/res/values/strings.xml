@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HermesNews</string>
-    <string name="no_articles_found">No articles found</string>
+    <string name="no_articles_found">No articles found right now.\nPlease come back later and check for new stories.</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="title">Italy\'s far right use Irish vote to boost anti-abortion campaign</string>
     <string name="date">2018-05-12</string>
