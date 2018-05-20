@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ArticlesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
-    private static final String NEWS_URL = "http://content.guardianapis.com/search?q=debate&order-by=newest&page-size=50&show-fields=headline,trailText,byline,firstPublicationDate,shortUrl,thumbnail" + APIKey.getApiKey();
+    private static final String NEWS_URL = "http://content.guardianapis.com/search?q=debate&order-by=newest&page-size=50&show-fields=headline,trailText,byline,firstPublicationDate,shortUrl,thumbnail&api-key=test";
 
     private TextView mEmptyStateTextView;
     private ArticleAdapter mArticleAdapter;
