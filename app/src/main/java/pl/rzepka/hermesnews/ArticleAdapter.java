@@ -15,7 +15,9 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
     private TextView titleTexView;
     private TextView publishedTexView;
-    private View separatorView;
+    private View sectionSeparatorView;
+    private TextView sectionTextView;
+    private View authorSeparatorView;
     private TextView authorTexView;
     private TextView trailTexView;
     private ImageView thumbnailImageView;
@@ -41,10 +43,19 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         publishedTexView = (TextView) listItemView.findViewById(R.id.published_text_view);
         publishedTexView.setText(article.getmPublished());
 
-        separatorView = (View) listItemView.findViewById(R.id.separator_view);
+        sectionSeparatorView = (View) listItemView.findViewById(R.id.section_separator_view);
+        sectionTextView = (TextView) listItemView.findViewById(R.id.section_text_view);
+        if (TextUtils.isEmpty(article.getmAuthor())) {
+            sectionSeparatorView.setVisibility(View.GONE);
+            sectionTextView.setVisibility(View.GONE);
+        } else {
+            sectionTextView.setText(article.getmSection());
+        }
+
+        authorSeparatorView = (View) listItemView.findViewById(R.id.author_separator_view);
         authorTexView = (TextView) listItemView.findViewById(R.id.author_text_view);
         if (TextUtils.isEmpty(article.getmAuthor())) {
-            separatorView.setVisibility(View.GONE);
+            authorSeparatorView.setVisibility(View.GONE);
             authorTexView.setVisibility(View.GONE);
         } else {
             authorTexView.setText(article.getmAuthor());
@@ -52,9 +63,10 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         trailTexView = (TextView) listItemView.findViewById(R.id.trail_text_view);
         trailTexView.setText(article.getmTrail());
-        if (titleTexView.getLineCount() < 3) {
-            trailTexView.setMaxLines(2);
-        }
+//        if (titleTexView.getLineCount() < 3) {
+//            trailTexView.setMaxLines(2);
+//            trailTexView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//        }
 
         thumbnailImageView = (ImageView) listItemView.findViewById(R.id.thumbnail_image_view);
         if (article.hasThumbnail() && article.getmThumbnail() != null) {
@@ -66,3 +78,4 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         return listItemView;
     }
 }
+

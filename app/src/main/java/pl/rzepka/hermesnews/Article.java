@@ -6,25 +6,19 @@ public class Article {
 
     private String mTitle;
     private String mPublished;
+    private String mSection;
     private String mAuthor;
     private String mTrail;
     private Bitmap mThumbnail;
     private String mUrl;
 
-    public Article(String mTitle, String mPublished, String mAuthor, String mTrail, Bitmap mThumbnail, String mUrl) {
+    public Article(String mTitle, String mPublished, String mSection, String mAuthor, String mTrail, Bitmap mThumbnail, String mUrl) {
         this.mTitle = mTitle;
         this.mPublished = mPublished;
+        this.mSection = mSection;
         this.mAuthor = mAuthor;
         this.mTrail = mTrail;
         this.mThumbnail = mThumbnail;
-        this.mUrl = mUrl;
-    }
-
-    public Article(String mTitle, String mPublished, String mAuthor, String mTrail, String mUrl) {
-        this.mTitle = mTitle;
-        this.mPublished = mPublished;
-        this.mAuthor = mAuthor;
-        this.mTrail = mTrail;
         this.mUrl = mUrl;
     }
 
@@ -33,7 +27,11 @@ public class Article {
     }
 
     public String getmPublished() {
-        return mPublished.substring(0,10);
+        return mPublished.substring(0, 10);
+    }
+
+    public String getmSection() {
+        return mSection;
     }
 
     public String getmAuthor() {
@@ -41,6 +39,10 @@ public class Article {
     }
 
     public String getmTrail() {
+        if (mTrail.contains("<")) {
+            String cleanedTrail = mTrail.replaceAll("<[^>]*>", "");
+            return cleanedTrail;
+        }
         return mTrail;
     }
 

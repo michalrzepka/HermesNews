@@ -52,6 +52,7 @@ public final class QueryArticles {
             JSONArray responseArray = jsonResults.getJSONArray("results");
             for (int i = 0; i < responseArray.length(); i++) {
                 JSONObject article = responseArray.getJSONObject(i);
+                String section = article.getString("sectionName");
                 JSONObject fields = article.getJSONObject("fields");
                 String title = fields.getString("headline");
                 String trail = fields.getString("trailText");
@@ -64,7 +65,7 @@ public final class QueryArticles {
                 } catch (IOException exception) {
                     Log.e(LOG_TAG, "Error getting thumbnail", exception);
                 }
-                articles.add(new Article(title, published, author, trail, thumbnail, url));
+                articles.add(new Article(title, published, section, author, trail, thumbnail, url));
             }
         } catch (JSONException exception) {
             Log.e(LOG_TAG, "Problem with parsing JSON", exception);

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HermesNews</string>
+    <string name="no_articles_found">No articles found</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="title">Italy\'s far right use Irish vote to boost anti-abortion campaign</string>
+    <string name="date">2018-05-12</string>
+    <string name="section">Technology</string>
+    <string name="author">Angela Giuffrida in Rome</string>
+    <string name="trail">Activists from ProVita step up action in run-up to 40th anniversary of legalisation of abortion in the country</string>
 </resources>
