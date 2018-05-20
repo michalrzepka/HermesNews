@@ -63,10 +63,6 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         trailTexView = (TextView) listItemView.findViewById(R.id.trail_text_view);
         trailTexView.setText(article.getmTrail());
-//        if (titleTexView.getLineCount() < 3) {
-//            trailTexView.setMaxLines(2);
-//            trailTexView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-//        }
 
         thumbnailImageView = (ImageView) listItemView.findViewById(R.id.thumbnail_image_view);
         if (article.hasThumbnail() && article.getmThumbnail() != null) {
