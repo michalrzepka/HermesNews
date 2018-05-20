@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
 
-    private static final String LOG_TAG = ArticleLoader.class.getName();
     private String mUrl;
 
     public ArticleLoader(Context context, String mUrl) {
@@ -26,7 +25,6 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
             return null;
         }
         List<Article> articles = QueryArticles.fetchArticlesFromServer(mUrl);
-
         return articles;
     }
 }
