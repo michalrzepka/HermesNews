@@ -2,9 +2,21 @@
     <string name="app_name">HermesNews</string>
     <string name="no_articles_found">No articles found right now.\nPlease come back later and check for new stories.</string>
     <string name="no_internet_connection">No internet connection</string>
-    <string name="title">Italy\'s far right use Irish vote to boost anti-abortion campaign</string>
-    <string name="date">2018-05-12</string>
-    <string name="section">Technology</string>
-    <string name="author">Angela Giuffrida in Rome</string>
-    <string name="trail">Activists from ProVita step up action in run-up to 40th anniversary of legalisation of abortion in the country</string>
+    <string name="title"></string>
+    <string name="date"></string>
+    <string name="section"></string>
+    <string name="author"></string>
+    <string name="trail"></string>
+
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">News Settings</string>
+
+    <string name="settings_query_label">Search topic</string>
+    <string name="settings_query_key" translatable="false">q</string>
+    <string name="settings_query_default" translatable="false">apple</string>
+
+    <string name="settings_size_label">Number of stories</string>
+    <string name="settings_size_key" translatable="false">page-size</string>
+    <string name="settings_size_default" translatable="false">10</string>
+
 </resources>

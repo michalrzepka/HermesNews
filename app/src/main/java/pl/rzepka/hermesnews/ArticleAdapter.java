@@ -32,7 +32,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         View listItemView = convertView;
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.article_item, parent, false);
+                    R.layout.article_item1, parent, false);
         }
 
         Article article = getItem(position);
@@ -43,14 +43,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         publishedTexView = (TextView) listItemView.findViewById(R.id.published_text_view);
         publishedTexView.setText(article.getmPublished());
 
-        sectionSeparatorView = (View) listItemView.findViewById(R.id.section_separator_view);
         sectionTextView = (TextView) listItemView.findViewById(R.id.section_text_view);
-        if (TextUtils.isEmpty(article.getmAuthor())) {
-            sectionSeparatorView.setVisibility(View.GONE);
-            sectionTextView.setVisibility(View.GONE);
-        } else {
-            sectionTextView.setText(article.getmSection());
-        }
+        sectionTextView.setText(article.getmSection());
 
         authorSeparatorView = (View) listItemView.findViewById(R.id.author_separator_view);
         authorTexView = (TextView) listItemView.findViewById(R.id.author_text_view);
@@ -60,9 +54,6 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         } else {
             authorTexView.setText(article.getmAuthor());
         }
-
-        trailTexView = (TextView) listItemView.findViewById(R.id.trail_text_view);
-        trailTexView.setText(article.getmTrail());
 
         thumbnailImageView = (ImageView) listItemView.findViewById(R.id.thumbnail_image_view);
         if (article.hasThumbnail() && article.getmThumbnail() != null) {

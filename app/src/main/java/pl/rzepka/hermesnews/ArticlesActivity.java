@@ -4,16 +4,24 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -24,7 +32,7 @@ import java.util.List;
 
 public class ArticlesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
-    private static final String NEWS_URL = "http://content.guardianapis.com/search?q=debate&order-by=newest&page-size=50&show-fields=headline,trailText,byline,firstPublicationDate,shortUrl,thumbnail&api-key=test";
+    private static final String NEWS_URL = "https://content.guardianapis.com/search";
 
     private TextView mEmptyStateTextView;
     private ArticleAdapter mArticleAdapter;
@@ -34,6 +42,9 @@ public class ArticlesActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles);
+
+        getWindow().getDecorView().setBackgroundColor(Color.BLACK);
+
 
         mProgressBar = (ProgressBar) findViewById(R.id.loading);
 
@@ -69,8 +80,41 @@ public class ArticlesActivity extends AppCompatActivity implements LoaderManager
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public Loader<List<Article>> onCreateLoader(int i, Bundle bundle) {
-        return new ArticleLoader(this, NEWS_URL);
+        mArticleAdapter.clear();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String query = preferences.getString(getString(R.string.settings_query_key), getString(R.string.settings_query_default));
+        String pagesize = preferences.getString(getString(R.string.settings_size_key), getString(R.string.settings_size_default));
+
+        Uri baseUri = Uri.parse(NEWS_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("q", query);
+        uriBuilder.appendQueryParameter("page-size", pagesize);
+        uriBuilder.appendQueryParameter("show-fields", "all");
+        uriBuilder.appendQueryParameter("order-by", "newest");
+        uriBuilder.appendQueryParameter("api-key", APIKey.getApiKey());
+        String url = uriBuilder.toString();
+        Log.v("URL", url);
+        return new ArticleLoader(this, url);
     }
 
     @Override

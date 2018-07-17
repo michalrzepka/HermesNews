@@ -24,9 +24,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:ellipsize="end"
+                android:maxLines="3"
                 android:text="@string/title"
                 android:textColor="@android:color/black"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -42,28 +43,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/date"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
-                <View
-                    android:id="@+id/section_separator_view"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="2dp"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@android:color/darker_gray"></View>
-
-                <TextView
-                    android:id="@+id/section_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@string/section"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
 
                 <View
                     android:id="@+id/author_separator_view"
@@ -73,38 +54,39 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="2dp"
-                    android:background="@android:color/darker_gray"></View>
+                    android:background="#747474"></View>
 
                 <TextView
-                    android:id="@+id/author_text_view"
+                    android:id="@+id/section_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/author"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/author_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/section"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
         <ImageView
             android:id="@+id/thumbnail_image_view"
-            android:layout_width="112dp"
-            android:layout_height="112dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginLeft="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/thumbnail" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/trail_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:text="@string/trail"
-        android:textSize="18sp" />
 
 </LinearLayout>

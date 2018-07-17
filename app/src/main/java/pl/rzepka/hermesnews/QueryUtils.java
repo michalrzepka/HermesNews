@@ -18,15 +18,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.TreeMap;
 
-public final class QueryArticles {
+public final class QueryUtils {
 
-    private static final String LOG_TAG = QueryArticles.class.getSimpleName();
+    private static final String LOG_TAG = QueryUtils.class.getSimpleName();
     private static HttpURLConnection urlConnection = null;
     private static InputStream inputStream = null;
 
-    private QueryArticles() {
+    private QueryUtils() {
     }
 
     public static List<Article> fetchArticlesFromServer(String apiUrl) {
@@ -54,18 +56,23 @@ public final class QueryArticles {
                 JSONObject article = responseArray.getJSONObject(i);
                 String section = article.getString("sectionName");
                 JSONObject fields = article.getJSONObject("fields");
-                String title = fields.getString("headline");
-                String trail = fields.getString("trailText");
-                String author = fields.getString("byline");
-                String published = fields.getString("firstPublicationDate");
-                String url = fields.getString("shortUrl");
+                String title = fields.optString("headline");
+                String trail = fields.optString("trailText");
+                String author = fields.optString("byline");
+                String published = fields.optString("firstPublicationDate");
+                String url = fields.optString("shortUrl");
                 Bitmap thumbnail = null;
-                try {
-                    thumbnail = getThumbnail(fields.getString("thumbnail"));
-                } catch (IOException exception) {
-                    Log.e(LOG_TAG, "Error getting thumbnail", exception);
+                Log.v("thumbnail", fields.optString("thumbnail"));
+                if (fields.optString("thumbnail") != "") {
+                    try {
+                        thumbnail = getThumbnail(fields.optString("thumbnail"));
+                    } catch (IOException exception) {
+                        Log.e(LOG_TAG, "Error getting thumbnail", exception);
+                    }
                 }
-                articles.add(new Article(title, published, section, author, trail, thumbnail, url));
+                if (thumbnail != null) {
+                    articles.add(new Article(title, published, section, author, trail, thumbnail, url));
+                }
             }
         } catch (JSONException exception) {
             Log.e(LOG_TAG, "Problem with parsing JSON", exception);
@@ -73,6 +80,41 @@ public final class QueryArticles {
 
         return articles;
     }
+
+    public static TreeMap<String, String> fetchSectionsFromServer(String apiUrl) {
+        URL url = createUrl(apiUrl);
+        String jsonResponse = null;
+        try {
+            jsonResponse = makeHttpRequest(url);
+        } catch (IOException exception) {
+            Log.e(LOG_TAG, "Problem making HTTP request", exception);
+        }
+        TreeMap<String, String> sections = extractSectionsFromJson(jsonResponse);
+        return sections;
+    }
+
+    private static TreeMap<String, String> extractSectionsFromJson(String jsonResponse) {
+        if (TextUtils.isEmpty(jsonResponse)) {
+            return null;
+        }
+        TreeMap<String, String> sections = new TreeMap<String, String>();
+        try {
+            JSONObject jsonResponseObject = new JSONObject(jsonResponse);
+            JSONObject jsonResults = jsonResponseObject.getJSONObject("response");
+            JSONArray responseArray = jsonResults.getJSONArray("results");
+            for (int i = 0; i < responseArray.length(); i++) {
+                JSONObject article = responseArray.getJSONObject(i);
+                String section = article.getString("id");
+                String sectionTitle = article.getString("webTitle");
+                sections.put(section, sectionTitle);
+            }
+        } catch (JSONException exception) {
+            Log.e(LOG_TAG, "Problem with parsing JSON", exception);
+        }
+
+        return sections;
+    }
+
 
     private static URL createUrl(String inputUrl) {
         URL url = null;

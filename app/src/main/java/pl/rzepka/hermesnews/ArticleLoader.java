@@ -24,7 +24,7 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
         if (mUrl == null) {
             return null;
         }
-        List<Article> articles = QueryArticles.fetchArticlesFromServer(mUrl);
+        List<Article> articles = QueryUtils.fetchArticlesFromServer(mUrl);
         return articles;
     }
 }
